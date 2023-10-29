@@ -1,4 +1,6 @@
-# Astro Starter Kit: Blog
+# Realtime bookings boilerplate
+
+Using Astro Starter Kit: Blog
 
 ```sh
 npm create astro@latest -- --template blog
