@@ -1,16 +1,18 @@
 import rss from '@astrojs/rss';
-import { getCollection } from 'astro:content';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { supabase } from "../../supabase";
 
 export async function GET(context) {
-	const items = await getCollection('items');
+	let { data: items } = await supabase
+		.from("Items")
+		.select("*");
 	return rss({
 		title: SITE_TITLE,
 		description: SITE_DESCRIPTION,
 		site: context.site,
-		items: posts.map((post) => ({
-			...post.data,
-			link: `/items/${post.slug}/`,
+		items: items.map((item) => ({
+			...item.data,
+			link: `/items/${item.id}/`,
 		})),
 	});
 }

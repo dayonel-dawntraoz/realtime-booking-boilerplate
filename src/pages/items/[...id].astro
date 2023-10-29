@@ -1,0 +1,18 @@
+---
+import BlogPost from "../../layouts/BlogPost.astro";
+import { supabase } from "../../supabase";
+import type { Item } from "../../types";
+
+export const getStaticPaths = async () => {
+  let { data: items } = await supabase.from("Items").select("*");
+  return items.map((item: Item) => ({
+    params: { id: item.id },
+    props: item,
+  }));
+};
+
+const item = Astro.props as Item;
+console.log(item);
+---
+
+<BlogPost {...item}>Muerto</BlogPost>
